@@ -1049,11 +1049,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   destination: {fileID: 0}
   source: {fileID: 0}
-  isDecelerating: 0
-  isParking: 0
-  isBraking: 0
-  forbiddenTraffic: 0
   isInJunction: 0
+  isParking: 0
+  forbiddenTraffic: 0
+  hasObstacle: 0
   maxSteeringAngle: 38
   motorTorque: 200
   brakeTorque: 1000
@@ -1066,6 +1065,8 @@ MonoBehaviour:
   frontRightTransform: {fileID: 2116838705761742189}
   rearLeftTransform: {fileID: 2116838704400196825}
   rearRightTransform: {fileID: 2116838704225056536}
+  sensorTransform: {fileID: 0}
+  sensor: {fileID: 0}
 --- !u!1 &2116838705056311111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2148,7 @@ MonoBehaviour:
   car: {fileID: 2116838705056311109}
   length: 10
   carVelocity: 0
+  otherCar: {fileID: 0}
 --- !u!1 &2116838705350311730
 GameObject:
   m_ObjectHideFlags: 0

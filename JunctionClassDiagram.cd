@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Junction">
+    <Position X="0.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAEAAABIAAAgABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Junctions\Junction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JunctionT">
+    <Position X="0.75" Y="3.5" Width="2.5" />
+    <Members>
+      <Field Name="NodeA" Hidden="true" />
+      <Field Name="NodeB" Hidden="true" />
+      <Field Name="NodeC" Hidden="true" />
+      <Field Name="NodeD" Hidden="true" />
+      <Field Name="NodeE" Hidden="true" />
+      <Field Name="NodeF" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAAAAAGAAAAQACACAAAIARAAABAEAg=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JunctionX">
+    <Position X="3.75" Y="3.5" Width="2.5" />
+    <Members>
+      <Field Name="NodeA" Hidden="true" />
+      <Field Name="NodeB" Hidden="true" />
+      <Field Name="NodeC" Hidden="true" />
+      <Field Name="NodeD" Hidden="true" />
+      <Field Name="NodeE" Hidden="true" />
+      <Field Name="NodeF" Hidden="true" />
+      <Field Name="NodeG" Hidden="true" />
+      <Field Name="NodeH" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAAAAAGAAAAQACACAAAIAFAAAAAGCg=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhaseExtension">
+    <Position X="12.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionXWithLights.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JunctionXWithLights">
+    <Position X="6.75" Y="0.5" Width="1.75" />
+    <Members>
+      <Field Name="east" Hidden="true" />
+      <Field Name="eastLights" Hidden="true" />
+      <Field Name="inBetWeenPhaseTime" Hidden="true" />
+      <Field Name="mainPhaseTime" Hidden="true" />
+      <Field Name="north" Hidden="true" />
+      <Field Name="northLights" Hidden="true" />
+      <Field Name="Phase" Hidden="true" />
+      <Field Name="phaseTime" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="JunctionX" FixedFromPoint="true">
+      <Path>
+        <Point X="6.125" Y="3.5" />
+        <Point X="6.125" Y="3.329" />
+        <Point X="7.625" Y="3.329" />
+        <Point X="7.625" Y="2.954" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAUAEAAAACAAAAQAAQAAAAABAAAAAACAAAAAAQBAhQA=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionXWithLights.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JunctionXWithPriority">
+    <Position X="6.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionXWithPriority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficLight">
+    <Position X="12.75" Y="2.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Private" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAABAAAAABABIABAAABAAAAAAAIIAAAAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\TrafficLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Phase" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAACAAAAAAAAAAAAEAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Junctions\JunctionXWithLights.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

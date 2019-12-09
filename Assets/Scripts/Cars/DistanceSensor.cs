@@ -6,7 +6,7 @@ public class DistanceSensor : MonoBehaviour
     public float length = 10f;
     public float carVelocity = 0f;
 
-    private GameObject otherCar = null;
+    public GameObject otherCar = null;
     private GameObject crossing = null;
     private GameObject barrier = null;
 
@@ -28,7 +28,18 @@ public class DistanceSensor : MonoBehaviour
 
         if (otherCar != null)
         {
-            carIsInBrakingDistance = carRigidbody.velocity.magnitude > otherCar.GetComponent<Rigidbody>().velocity.magnitude;
+            carIsInBrakingDistance = carRigidbody.velocity.magnitude > otherCar.GetComponent<Rigidbody>().velocity.magnitude
+                || Vector3.Distance(car.transform.position, otherCar.transform.position) < 4;
+            var otherController = otherCar.GetComponent<CarController>();
+            if (carController.maxVelocity > otherController.maxVelocity + 4) //TODO
+            {
+                if (carController.TryOvertake(otherController))
+                {
+                    otherCar = null;
+                    //gameObject.SetActive(false);
+                    return;
+                }
+            }
         }
 
         if (crossing != null)
@@ -89,5 +100,10 @@ public class DistanceSensor : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
     }
 }

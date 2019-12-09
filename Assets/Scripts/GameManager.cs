@@ -1,6 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public static class listEx
+{
+    private static System.Random random = new System.Random();
+
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        int size = list.Count;
+        for (int i = size - 1; i > 1; i--)
+        {
+            T temp = list[i];
+            int j = random.Next(i + 1);
+            list[i] = list[j];
+            list[j] = temp;
+        }
+    }
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -64,13 +80,21 @@ public class GameManager : MonoBehaviour
     {
         carPrefab.SetActive(false);
 
-        Node randomSource = sourcesForCars[Random.Range(0, sourcesForCars.Count)];
+        Node randomSource = null;
         Node randomDestination = destinationsForCars[Random.Range(0, destinationsForCars.Count)];
 
-        while (randomSource.GetComponent<Source>().busy)
+        var sources = new List<Node>(sourcesForCars);
+        sources.Shuffle();
+        foreach (var source in sources)
         {
-            randomSource = sourcesForCars[Random.Range(0, sourcesForCars.Count)];
+            if (!source.GetComponent<Source>().busy)
+            {
+                randomSource = source;
+                break;
+            }
         }
+
+        if (randomSource == null) return;
 
         if (randomDestination.gameObject.tag == Strings.destinationForParking)
         {

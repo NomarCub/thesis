@@ -31,6 +31,14 @@ public class CameraController : MonoBehaviour
 
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            yPosition++;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            yPosition--;
+        }
     }
 
     private void Rotate()
