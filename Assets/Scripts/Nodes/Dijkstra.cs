@@ -70,12 +70,12 @@ public class Dijkstra : MonoBehaviour
         }
     }
 
-    private Node GetLowestDistanceNode(List<Node> unsettledNodes)
+    private Node GetLowestDistanceNode(List<Node> unvisitedNodes)
     {
         Node lowestDistanceNode = null;
         float lowestDistance = float.MaxValue;
 
-        foreach (Node node in unsettledNodes)
+        foreach (Node node in unvisitedNodes)
         {
             float nodeDistanceFromSource = node.distanceFromSource;
             if (nodeDistanceFromSource < lowestDistance)

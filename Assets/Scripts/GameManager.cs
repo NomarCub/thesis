@@ -3,8 +3,9 @@ using UnityEngine;
 
 public static class listEx
 {
-    private static System.Random random = new System.Random();
+    private static readonly System.Random random = new System.Random();
 
+    // Fisher–Yates shuffle
     public static void Shuffle<T>(this IList<T> list)
     {
         int size = list.Count;

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5053649582918131178}
   - component: {fileID: 5053649582918131159}
   - component: {fileID: 5053649582918131156}
-  - component: {fileID: 5053649582918131157}
   m_Layer: 0
   m_Name: RedLight
   m_TagString: Untagged
@@ -79,20 +78,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5053649582918131157
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053649582918131179}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5053649584157376388
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +136,6 @@ GameObject:
   - component: {fileID: 5053649584168539236}
   - component: {fileID: 5053649584168539233}
   - component: {fileID: 5053649584168539238}
-  - component: {fileID: 5053649584168539239}
   m_Layer: 0
   m_Name: YellowLight
   m_TagString: Untagged
@@ -219,20 +203,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5053649584168539239
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053649584168539237}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5053649584175887891
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +214,6 @@ GameObject:
   - component: {fileID: 5053649584175887903}
   - component: {fileID: 5053649584175887900}
   - component: {fileID: 5053649584175887901}
-  - component: {fileID: 5053649584175887890}
   m_Layer: 0
   m_Name: GreenLight
   m_TagString: Untagged
@@ -312,20 +281,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &5053649584175887890
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053649584175887891}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1001 &5053649584183584240
 PrefabInstance:
   m_ObjectHideFlags: 0

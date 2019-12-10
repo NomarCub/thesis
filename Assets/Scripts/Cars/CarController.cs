@@ -222,24 +222,25 @@ public class CarController : MonoBehaviour
         var rayFrom = gameObject.transform.position + leftDir * laneDistance;
         rayFrom.y = rayHeight;
         RaycastHit hit;
-        Debug.DrawRay(rayFrom, forwardDir * minOvertakeDist, Color.red, 0.2f, false);
         float rayDist = Mathf.Min(minOvertakeDist + maxCarVelocity * (minOvertakeDist / maxVelocity), distanceToJunction);
+        Debug.DrawRay(rayFrom - leftDir * 0.1f, forwardDir * rayDist, Color.red, 0.5f, false);
         if (Physics.Raycast(rayFrom, forwardDir, out hit, rayDist))
         {
             var hitTag = hit.collider.gameObject.tag;
             if (hitTag == Strings.car || hitTag == Strings.pedestrianCrossing)
                 return false;
         }
-        Debug.DrawRay(rayFrom, forwardDir * rayDist, Color.green, 0.5f, false);
 
-        Debug.DrawRay(rightLane, forwardDir * 30, Color.white, 1.5f, false);
-        Debug.DrawRay(leftLane, forwardDir * 30, Color.black, 1.5f, false);
+        Debug.DrawRay(rightLane + rightDir * 0.1f, forwardDir * 30, Color.white, 1.5f, false);
+        Debug.DrawRay(leftLane + leftDir * 0.1f, forwardDir * 30, Color.black, 1.5f, false);
+
+        Debug.DrawRay(rayFrom, forwardDir * rayDist, Color.green, 1f, false);
 
         overtakeInfo = new OvertakeInfo()
         {
             state = OvertakeInfo.State.KeepLeft,
             otherCar = otherCar,
-            Car = this,
+            car = this,
             forwardDir = forwardDir,
             rightDir = rightDir,
             leftDir = leftDir,
@@ -252,8 +253,6 @@ public class CarController : MonoBehaviour
 
     public class OvertakeInfo
     {
-        public CarController Car;
-        //public OvertakeInfo(CarController car) => Car = car;
         public enum State { None, KeepRight, KeepLeft };
         private State _state = State.None;
         public State state
@@ -261,16 +260,17 @@ public class CarController : MonoBehaviour
             get => _state;
             set
             {
-                Debug.Log($"car {Car?.ID} {value}");
+                Debug.Log($"car {car?.ID} {value}");
                 _state = value;
             }
         }
+        public CarController car;
+        public CarController otherCar;
         public Vector3 rightLane;
         public Vector3 leftLane;
         public Vector3 forwardDir;
         public Vector3 leftDir;
         public Vector3 rightDir;
-        public CarController otherCar;
     }
 
     public OvertakeInfo overtakeInfo = new OvertakeInfo();
@@ -302,7 +302,7 @@ public class CarController : MonoBehaviour
         if (deltav == 0f)
             return float.PositiveInfinity;
 
-        float s = 5 * 8f;
+        const float s = 5 * 8f;
         float t = s / deltav;
         return Mathf.Max(v1, v2) * t;
     }
@@ -320,15 +320,13 @@ public class CarController : MonoBehaviour
                             + overtakeInfo.forwardDir * 6;
                     Debug.DrawRay(transform.position, dest - transform.position, Color.blue, 0.5f);
                     steerTowards(dest);
-                    if (!isBehind(
+                    if (isBehind(
                             transform.position,
                             overtakeInfo.forwardDir,
                             overtakeInfo.otherCar.transform.position + overtakeInfo.forwardDir * 2))
-                        return;
-
-                    overtakeInfo.state = OvertakeInfo.State.KeepRight;
-                    break;
+                        overtakeInfo.state = OvertakeInfo.State.KeepRight;
                 }
+                break;
             case OvertakeInfo.State.KeepRight:
                 {
                     var dest = ProjectPointOnLine(
@@ -340,15 +338,11 @@ public class CarController : MonoBehaviour
                     steerTowards(dest);
 
                     if (isToRight(transform.position,
-                        overtakeInfo.forwardDir,
-                        overtakeInfo.leftLane + overtakeInfo.rightDir * laneDistance * 0.8f))
-                    {
+                            overtakeInfo.forwardDir,
+                            overtakeInfo.leftLane + overtakeInfo.rightDir * laneDistance * 0.8f))
                         overtakeInfo.state = OvertakeInfo.State.None;
-                        sensor.gameObject.SetActive(true);
-                    }
-                    break;
                 }
-            default: break;
+                break;
         }
     }
     private void RotateSensor()
