@@ -9,6 +9,7 @@ public class CarController : MonoBehaviour
     private const float laneDistance = 5f;
 
     public const float FastestCarVelocity = 14f;
+    public const float SlowestCarVelocity = 4f;
     public static int currentID = 0;
     public int ID;
 
@@ -18,7 +19,7 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         ID = Interlocked.Increment(ref currentID);
-        maxVelocity = ID % 3 == 0 ? FastestCarVelocity : FastestCarVelocity - 10;
+        maxVelocity = ID % 3 == 0 ? FastestCarVelocity : SlowestCarVelocity;
     }
 
     public float maxVelocity = 4.33f;

@@ -31,7 +31,8 @@ public class DistanceSensor : MonoBehaviour
             carIsInBrakingDistance = carRigidbody.velocity.magnitude > otherCar.GetComponent<Rigidbody>().velocity.magnitude
                 || Vector3.Distance(car.transform.position, otherCar.transform.position) < 4;
             var otherController = otherCar.GetComponent<CarController>();
-            if (carController.maxVelocity > otherController.maxVelocity + 4) //TODO
+            if (carController.maxVelocity > otherController.maxVelocity + 4
+                && otherController.maxVelocity > CarController.SlowestCarVelocity * 0.5)
             {
                 if (carController.TryOvertake(otherController))
                 {

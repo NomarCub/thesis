@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DestinationForParking : MonoBehaviour
+public class DestinationForParking : DestinationForCars
 {
     private void OnTriggerEnter(Collider other)
     {

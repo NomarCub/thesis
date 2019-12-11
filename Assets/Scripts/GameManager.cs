@@ -57,7 +57,22 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
+            Setup();
         }
+    }
+
+    private void Setup()
+    {
+        var path = GameObject.Find("/Path");
+
+        var destinations = path.GetComponentsInChildren<DestinationForCars>();
+        var sources = path.GetComponentsInChildren<SourceForCars>();
+
+        foreach (var dest in destinations)
+            if (dest.available)
+                destinationsForCars.Add(dest.gameObject.GetComponent<Node>());
+        foreach (var source in sources)
+            sourcesForCars.Add(source.gameObject.GetComponent<Node>());
     }
 
     private void Update()
@@ -89,7 +104,7 @@ public class GameManager : MonoBehaviour
         sources.Shuffle();
         foreach (var source in sources)
         {
-            if (!source.GetComponent<Source>().busy)
+            if (!source.GetComponent<SourceForCars>().busy)
             {
                 randomSource = source;
                 break;
