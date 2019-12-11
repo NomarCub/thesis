@@ -36,7 +36,6 @@ public class DistanceSensor : MonoBehaviour
                 if (carController.TryOvertake(otherController))
                 {
                     otherCar = null;
-                    //gameObject.SetActive(false);
                     return;
                 }
             }
@@ -58,7 +57,7 @@ public class DistanceSensor : MonoBehaviour
     {
         carVelocity = carRigidbody.velocity.magnitude;
 
-        float normalized = carVelocity / carController.maxVelocity;
+        float normalized = carVelocity / CarController.maxCarVelocity;
 
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, length * normalized + 1.5f);
     }

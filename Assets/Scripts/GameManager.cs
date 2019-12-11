@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private int maxPedestriansOnScreen = 10;
     private float currentSpawnTimeForCars = 0f;
     private float currentSpawnTimeForPedestrians = 0f;
+    private List<Transform> availableSourcesForPedestrians = new List<Transform>();
 
     private void Awake()
     {
@@ -132,14 +133,24 @@ public class GameManager : MonoBehaviour
 
     private void SpawnPedestrian()
     {
+        if (availableSourcesForPedestrians.Count == 0)
+        {
+            foreach (var source in sourcesForPedestrians)
+            {
+                if (!source.gameObject.GetComponent<SourceForPedestrians>().busy)
+                {
+                    availableSourcesForPedestrians.Add(source);
+                }
+            }
+        }
+
+        if (availableSourcesForPedestrians.Count == 0)
+            return;
+
         pedestrianPrefab.SetActive(false);
 
-        Transform randomSource = sourcesForPedestrians[Random.Range(0, sourcesForPedestrians.Count)];
-
-        while (randomSource.GetComponent<SourceForPedestrians>().busy)
-        {
-            randomSource = sourcesForPedestrians[Random.Range(0, sourcesForPedestrians.Count)];
-        }
+        Transform randomSource = availableSourcesForPedestrians[Random.Range(0, availableSourcesForPedestrians.Count)];
+        availableSourcesForPedestrians.Remove(randomSource);
 
         GameObject pedestrian = Instantiate(pedestrianPrefab, randomSource.position, Quaternion.identity);
 

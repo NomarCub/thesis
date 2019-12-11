@@ -8,7 +8,7 @@ public class CarController : MonoBehaviour
     private const float rayHeight = 0.8f;
     private const float laneDistance = 5f;
 
-    private const float maxCarVelocity = 14f;
+    public const float maxCarVelocity = 14f;
     public static int noteID = 0;
     public int ID;
 
@@ -143,13 +143,12 @@ public class CarController : MonoBehaviour
         rigidB.drag = 0.0f;
     }
 
-    float SlowDownDistance(float to)
+    static float SlowDownDistance(float from, float to)
     {
-        float velocity = rigidB.velocity.magnitude;
-        if (velocity < to)
+        if (from < to)
             return 0;
 
-        float deltaV = velocity - to;
+        float deltaV = from - to;
         const float brakeDeceleration = 4.5f;
         float deltaT = deltaV / brakeDeceleration;
         return to * deltaT + deltaT * deltaV / 2;
@@ -162,7 +161,7 @@ public class CarController : MonoBehaviour
         {
             float distanceFromCurrentNode = Vector3.Distance(transform.position, currentNode.transform.position);
             if (!isInJunction
-                && SlowDownDistance(Junction.speedLimit) > distanceFromCurrentNode
+                && SlowDownDistance(rigidB.velocity.magnitude, Junction.speedLimit) > distanceFromCurrentNode
                 && currentNode.gameObject.tag == Strings.junctionInTag)
             {
                 isInJunction = true;
