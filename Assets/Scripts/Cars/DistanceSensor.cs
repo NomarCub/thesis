@@ -57,7 +57,7 @@ public class DistanceSensor : MonoBehaviour
     {
         carVelocity = carRigidbody.velocity.magnitude;
 
-        float normalized = carVelocity / CarController.maxCarVelocity;
+        float normalized = carVelocity / CarController.FastestCarVelocity;
 
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, length * normalized + 1.5f);
     }

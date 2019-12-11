@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    public static int noteID = 0;
+    public static int currentID = 0;
     public int ID;
     public List<Node> shortestPath = new List<Node>();
     public float distanceFromSource = float.MaxValue;
@@ -15,7 +15,7 @@ public class Node : MonoBehaviour
 
     private void Awake()
     {
-        ID = Interlocked.Increment(ref noteID);
+        ID = Interlocked.Increment(ref currentID);
     }
 
     public float GetWeightOf(Transform neighbour)
