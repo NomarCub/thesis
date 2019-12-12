@@ -8,7 +8,7 @@ public static class PhysicsCalc
             return 0;
 
         float deltaV = from - to;
-        const float brakeDeceleration = 4.5f;
+        const float brakeDeceleration = 4f;
         float deltaT = deltaV / brakeDeceleration;
         return to * deltaT + deltaT * deltaV / 2;
     }

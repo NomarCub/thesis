@@ -19,7 +19,6 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         ID = Interlocked.Increment(ref currentID);
-        maxVelocity = ID % 3 == 0 ? FastestCarVelocity : SlowestCarVelocity;
     }
 
     public float maxVelocity = 4.33f;
@@ -80,6 +79,7 @@ public class CarController : MonoBehaviour
         sensorTransform = transform.Find(Strings.distanceSensor);
         sensor = gameObject.GetComponentInChildren<DistanceSensor>();
         shortestPath = Dijkstra.Instance.CalculateShortestPath(Graph.Instance, source, destination);
+        maxVelocity = ID % 3 == 0 ? FastestCarVelocity : SlowestCarVelocity;
         speedLimit = maxVelocity;
     }
 
@@ -183,7 +183,12 @@ public class CarController : MonoBehaviour
 
     internal bool TryOvertake(CarController otherCar)
     {
-        if (isInJunction || cantGo() || overtakeInfo.state != OvertakeInfo.State.None)
+        if (maxVelocity < otherCar.maxVelocity + 4
+                || otherCar.velocity < SlowestCarVelocity * 0.5
+                || isInJunction
+                || cantGo()
+                || overtakeInfo.state != OvertakeInfo.State.None
+                || overtakeInfo.lastTried + 0.5f > Time.fixedTime)
             return false;
 
         Node currentNode = shortestPath[currentNodeIndex];
@@ -205,7 +210,7 @@ public class CarController : MonoBehaviour
         var rayFrom = gameObject.transform.position + leftDir * laneDistance;
         rayFrom.y = rayHeight;
         RaycastHit hit;
-        float rayDist = Mathf.Min(minOvertakeDist + FastestCarVelocity * (minOvertakeDist / maxVelocity), distanceToJunction);
+        float rayDist = minOvertakeDist + FastestCarVelocity * (minOvertakeDist / maxVelocity);
         Debug.DrawRay(rayFrom - leftDir * 0.1f, forwardDir * rayDist, Color.red, 0.5f, false);
         if (Physics.Raycast(rayFrom, forwardDir, out hit, rayDist))
         {
@@ -221,14 +226,15 @@ public class CarController : MonoBehaviour
 
         overtakeInfo = new OvertakeInfo()
         {
-            state = OvertakeInfo.State.KeepLeft,
-            otherCar = otherCar,
             car = this,
+            otherCar = otherCar,
             forwardDir = forwardDir,
             rightDir = rightDir,
             leftDir = leftDir,
             rightLane = rightLane,
-            leftLane = leftLane
+            leftLane = leftLane,
+            lastTried = Time.fixedTime,
+            state = OvertakeInfo.State.KeepLeft
         };
 
         return true;
@@ -249,6 +255,8 @@ public class CarController : MonoBehaviour
         }
         public CarController car;
         public CarController otherCar;
+
+        public float lastTried = 0;
         public Vector3 rightLane;
         public Vector3 leftLane;
         public Vector3 forwardDir;
@@ -271,7 +279,7 @@ public class CarController : MonoBehaviour
                             + overtakeInfo.forwardDir * 6;
                     Debug.DrawRay(transform.position, dest - transform.position, Color.blue, 0.5f);
                     steerTowards(dest);
-                    if (PhysicsCalc.IsBehind(
+                    if (overtakeInfo.otherCar == null || PhysicsCalc.IsBehind(
                             transform.position,
                             overtakeInfo.forwardDir,
                             overtakeInfo.otherCar.transform.position + overtakeInfo.forwardDir * 2))
@@ -288,7 +296,7 @@ public class CarController : MonoBehaviour
                     Debug.DrawRay(transform.position, dest - transform.position, Color.blue, 0.5f);
                     steerTowards(dest);
 
-                    if (PhysicsCalc.IsToRight(
+                    if (overtakeInfo.otherCar == null || PhysicsCalc.IsToRight(
                             transform.position,
                             overtakeInfo.forwardDir,
                             overtakeInfo.leftLane + overtakeInfo.rightDir * laneDistance * 0.8f))
