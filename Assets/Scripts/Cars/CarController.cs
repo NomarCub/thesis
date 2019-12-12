@@ -189,7 +189,10 @@ public class CarController : MonoBehaviour
                 || cantGo()
                 || overtakeInfo.state != OvertakeInfo.State.None
                 || overtakeInfo.lastTried + 0.5f > Time.fixedTime)
+        {
+            overtakeInfo.lastTried = Time.fixedTime;
             return false;
+        }
 
         Node currentNode = shortestPath[currentNodeIndex];
         Node previousNode = shortestPath[currentNodeIndex - 1];
